@@ -143,7 +143,7 @@ private:
 
       // Create executor with dedicated thread to spin.
       executor_ = std::make_shared<rclcpp::executors::SingleThreadedExecutor>();
-      running_ = true;
+      running_.store(true);
       executor_->add_callback_group(callback_group_, node_base_interface_);
       dedicated_listener_thread_ = std::make_unique<std::thread>([&]() {
         while (running_.load()) {
